@@ -14,7 +14,7 @@ Layout - [Material UI](https://mui.com)
 
 ## Related project
 
-Associated android app (Flutter) - [here]()
+Associated android app (Flutter) - [here](https://github.com/murageh/hostels-app-android)
 
 ## Screenshot(s)
 
