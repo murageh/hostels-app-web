@@ -15,9 +15,9 @@ import Link from '@mui/material/Link';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {mainListItems, secondaryListItems} from './listItems';
 import Tables from './Tables';
-import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import {useMaterialUIController} from "context";
+import {Navigate} from "react-router-dom";
 
 function Copyright(props) {
     return (
@@ -163,5 +163,8 @@ function DashboardContent() {
 }
 
 export default function Dashboard() {
-    return <DashboardContent/>;
+    console.log(sessionStorage.getItem("username"), sessionStorage.getItem("isLoggedIn") === "true");
+    return (sessionStorage.getItem("username") && sessionStorage.getItem("isLoggedIn") === "true")
+        ? <DashboardContent/> :
+        <Navigate to="/login"/>;
 }

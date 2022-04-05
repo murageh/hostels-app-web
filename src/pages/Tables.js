@@ -11,10 +11,12 @@ import {axiosError, parseResponse} from "../utils";
 import CustomizedSnackbars from "../utils/alerts";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import {Done, PriorityHigh} from "@mui/icons-material";
+import {Done, Print, PriorityHigh} from "@mui/icons-material";
 import {Button} from "@mui/material";
 import Box from "@mui/material/Box";
 import {AddHostelDialog, AddRoomDialog} from "utils/formDialog";
+import IconButton from "@mui/material/IconButton";
+import {printHostels, printRooms, printStudents} from "utils/reports/ReportGenerator";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -281,12 +283,26 @@ export default function Tables({type}) {
     }
 
     const dataTypes = [
-        "students",
-        "admins",
-        "hostels",
-        "rooms",
-        "students-clearance",
-    ]
+        "students", // 0
+        "admins", // 1
+        "hostels", // 2
+        "rooms", // 3
+        "students-clearance", // 4
+    ];
+
+    const handlePrint = () => {
+      if (type === dataTypes[0]){
+          printStudents(data);
+      } else if (type === dataTypes[1]){
+
+      } else if (type === dataTypes[2]){
+          printHostels(data);
+      } else if (type === dataTypes[3]){
+          printRooms(data)
+      } else if (type === dataTypes[4]){
+          printStudents(data, "Clearance status")
+      }
+    }
 
     useEffect(() => {
         if (dataTypes.includes(type)) {
@@ -307,7 +323,14 @@ export default function Tables({type}) {
 
     return (
         <React.Fragment>
-            <Title>All {type}</Title>
+            <Box display="flex" >
+                <Title>All {type}</Title>
+                <Box ml="auto">
+                    <IconButton color={"info"} onClick={handlePrint}>
+                        <Print />
+                    </IconButton>
+                </Box>
+            </Box>
             {error !== null && <CustomizedSnackbars color={"error"} message={error}/>}
             {info !== null && <CustomizedSnackbars color={"info"} message={info}/>}
             {showAddHostelDialog && <AddHostelDialog onError={setError} onInfo={setInfo} onUpdate={requestRefresh}/>}

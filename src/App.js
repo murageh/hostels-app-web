@@ -5,6 +5,7 @@ import {ThemeProvider} from "@mui/material";
 import {useMaterialUIController} from "context";
 import theme from "./assets/theme";
 import themeDark from "./assets/theme-dark";
+import Login from "pages/authentication/login";
 
 function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -28,6 +29,14 @@ function App() {
                         type="private"
                         element={
                             <Dashboard/>
+                        }
+                        key={"accounts/single"}
+                    />
+                    <Route
+                        path={"/login"}
+                        type="public"
+                        element={
+                            <Login/>
                         }
                         key={"accounts/single"}
                     />
